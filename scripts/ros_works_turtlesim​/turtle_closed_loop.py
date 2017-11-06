@@ -8,11 +8,17 @@ import math
 class TurtleClosedLoop:
     ''' Classe para o controle de malha fechada da tartaruga '''
     def __init__(self):
+        ''' Construtor da classe TurtleClosedLoop '''
+        # parametros de movimento
         self.kp = 1
         self.vel = 1
+        # Elemento publisher ROS
         self.pub = rospy.Publisher('turtle1/cmd_vel', Twist, queue_size = 1)
-        self.rate = rospy.Rate(10) #Hertz
+        # Elemento subscriber ROS
         rospy.Subscriber("turtle1/pose", Pose, self.callback)
+        # Frequencia de cada interacao
+        self.rate = rospy.Rate(10) #Hertz
+        # inicializacao de variaveis recebidas no callback
         self.turtle_x = 0
         self.turtle_y = 0
         self.turtle_theta = 0
@@ -20,6 +26,7 @@ class TurtleClosedLoop:
         self.turtle_angular_velocity = 0
 
     def callback(self, msg):
+        ''' Funcao chamada toda a vez que atualizar-se o topico: turtle1/pose '''
         self.turtle_x = msg.x
         self.turtle_y = msg.y
         self.turtle_theta = msg.theta
@@ -28,13 +35,14 @@ class TurtleClosedLoop:
         # print 'x = ',self.turtle_x,'\ny = ',self.turtle_y
 
     def move_angular(self, vel):
+        ''' Cria e envia mensagem de velocidade angular '''
         vel_msg = Twist()
         vel_msg.angular.z = vel
         self.pub.publish(vel_msg)
         turtle.rate.sleep()
 
     def move_linear(self, vel):
-        print 'Move turtle'
+        ''' Cria e envia mensagem de velocidade linear '''
         vel_msg = Twist()
         vel_msg.linear.x = vel
         self.pub.publish(vel_msg)
@@ -49,11 +57,17 @@ class TurtleClosedLoop:
         turtle.rate.sleep()
 
     def stop(self):
+        ''' Cria e publica mensagem para parar a tartaruga '''
         vel_msg = Twist()
         self.pub.publish(vel_msg)
 
     def go_to_point(self, x, y):
-        ''' Recebe ponto, vai ao ponto '''
+        '''
+            Recebe ponto, vai ao ponto.
+            Realiza um controle proporcional da orientacao da tartaruga, enquanto se move em velocidades constantes.
+            A velocidade padrao e self.vel
+            O ganho proporcional e self.kp
+        '''
         tolerance = 0.1
         diff_x = x - self.turtle_x
         diff_y = y - self.turtle_y
