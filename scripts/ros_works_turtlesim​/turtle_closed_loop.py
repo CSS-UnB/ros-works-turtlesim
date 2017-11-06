@@ -8,6 +8,7 @@ import math
 class TurtleClosedLoop:
     ''' Classe para o controle de malha fechada da tartaruga '''
     def __init__(self):
+        self.kp = 1
         self.vel = 1
         self.pub = rospy.Publisher('turtle1/cmd_vel', Twist, queue_size = 1)
         self.rate = rospy.Rate(10) #Hertz
@@ -39,6 +40,14 @@ class TurtleClosedLoop:
         self.pub.publish(vel_msg)
         turtle.rate.sleep()
 
+    def move_general(self, vel, ang):
+        ''' Recebe velocidades linear e angular para movimentar a tartaruga '''
+        vel_msg = Twist()
+        vel_msg.linear.x = vel
+        vel_msg.angular.z = ang
+        self.pub.publish(vel_msg)
+        turtle.rate.sleep()
+
     def stop(self):
         vel_msg = Twist()
         self.pub.publish(vel_msg)
@@ -50,16 +59,13 @@ class TurtleClosedLoop:
         diff_y = y - self.turtle_y
         theta_goal = math.atan2(diff_y, diff_x)
         diff_theta = theta_goal - self.turtle_theta
-        while abs(diff_theta) > tolerance:
-            self.move_angular(self.vel)
-            diff_theta = theta_goal - self.turtle_theta
-        self.stop()
-        print diff_x, diff_y
-
         while abs(diff_x) > tolerance or abs(diff_y) > tolerance:
-            self.move_linear(self.vel)
             diff_x = x - self.turtle_x
             diff_y = y - self.turtle_y
+            theta_goal = math.atan2(diff_y, diff_x)
+            diff_theta = theta_goal - self.turtle_theta
+            self.move_general(self.vel , self.kp * diff_theta)
+
         self.stop()
 
     def run(self):
