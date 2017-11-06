@@ -52,21 +52,21 @@ def move_linear(vel, dist, pub):
     time = dist/vel
     waituntill(time, pub, vel_msg)
 
-def fazquadrado (lado):
+def fazquadrado(lado, vel, pub):
     i = 0
 
     while i<4:
-        move_linear(1.0, lado, pub)
+        move_linear(vel, lado, pub)
         stop(pub)
         if (i < 3):
-            turn_90h(1.0, pub)
+            turn_90h(vel, pub)
         i = i+ 1
 
     print('Pronto')
 
 while not rospy.is_shutdown():
-
-    vel = 12
+    lado = 2
+    vel = 0.2
     print('Digite o valor de x e de y')
     x = 0
     x = input()
@@ -79,7 +79,7 @@ while not rospy.is_shutdown():
 
     print(dist,' ', theta)
 
-    turn_theta(theta, vel, pub)
+    fazquadrado(lado, vel, pub)
 
 
     #fazquadrado(n)
