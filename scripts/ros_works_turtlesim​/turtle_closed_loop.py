@@ -82,18 +82,25 @@ class TurtleClosedLoop:
 
         self.stop()
 
-    def run(self):
-        ''' Funcao principal '''
-        while not rospy.is_shutdown():
-            try:
-                print 'Aonde deseja ir?'
-                print 'X: '
-                x = input()
-                print 'Y: '
-                y = input()
-                self.go_to_point(x, y)
-            except rospy.ROSInterruptException:
-                pass
+    def run(self, x, y):
+        '''
+            Funcao principal da classe
+            Recebe dois valores float x e y.
+            Os valores denotam a posicao alvo da tartaruga
+        '''
+        try:
+            self.go_to_point(x, y)
+        except rospy.ROSInterruptException:
+            pass
+
+
+def interface_usuario():
+    print 'Aonde deseja ir?'
+    print 'X: '
+    x = input()
+    print 'Y: '
+    y = input()
+    return x, y
 
 if __name__ == '__main__':
 
@@ -101,4 +108,9 @@ if __name__ == '__main__':
 
     turtle = TurtleClosedLoop()
 
-    turtle.run()
+    while not rospy.is_shutdown():
+        try:
+            x, y = interface_usuario()
+            turtle.run(x, y)
+        except rospy.ROSInterruptException:
+            pass
