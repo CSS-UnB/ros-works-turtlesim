@@ -158,6 +158,7 @@ include_directories(
 install(PROGRAMS
   scripts/ros_works_turtlesim/turtle_open_control_node
   scripts/ros_works_turtlesim/turtle_closed_loop
+  scripts/ros_works_turtlesim_swarm/turtle_swarm_node
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
