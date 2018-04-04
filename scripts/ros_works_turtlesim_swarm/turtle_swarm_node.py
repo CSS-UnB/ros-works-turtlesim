@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 import rospy
-import turtle
-import menu
+from turtle import Turtle
+from menu import Menu
 
 def main():
     rospy.init_node('turtle_swarm')
 
-    menu_ = menu.Menu()
+    menu_ = Menu()
 
     while not rospy.is_shutdown():
         try:
