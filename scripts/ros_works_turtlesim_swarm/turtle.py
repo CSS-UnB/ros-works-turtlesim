@@ -19,7 +19,7 @@ class Turtle():
         self.theta = theta
         self.name = name
 
-    def spawn(self):
+    def spawn_turtle(self):
         self.spawn = rospy.ServiceProxy("spawn", Spawn) #TODO: TRATAR NOMES DIFERENTES
         self.name = self.spawn(self.x, self.y, self.theta, self.name)
 
