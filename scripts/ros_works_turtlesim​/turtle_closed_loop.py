@@ -1,23 +1,26 @@
 #!/usr/bin/env python
+# coding: utf-8
 
 import rospy
 from geometry_msgs.msg import Twist
 from turtlesim.msg import Pose
 import math
 
-class TurtleClosedLoop:
-    ''' Classe para o controle de malha fechada da tartaruga '''
+from turtle_kinematics import TurtleKinematics
+
+class TurtleClosedLoop(TurtleKinematics):
+    ''' Classe para o controle de malha fechada da tartaruga.
+    Torna-se possível fechar a malha por meio do callback no "tópico turtle1/pose".
+    Ele fornece a posição atual da tartaruga dentro da simulação.
+    '''
     def __init__(self):
         ''' Construtor da classe TurtleClosedLoop '''
+        TurtleKinematics.__init__(self) # calls parent class constructor
         # parametros de movimento
         self.kp = 1
         self.vel = 1
-        # Elemento publisher ROS
-        self.pub = rospy.Publisher('turtle1/cmd_vel', Twist, queue_size = 1)
         # Elemento subscriber ROS
         rospy.Subscriber("turtle1/pose", Pose, self.callback)
-        # Frequencia de cada interacao
-        self.rate = rospy.Rate(10) #Hertz
         # inicializacao de variaveis recebidas no callback
         self.turtle_x = 0
         self.turtle_y = 0
@@ -26,40 +29,13 @@ class TurtleClosedLoop:
         self.turtle_angular_velocity = 0
 
     def callback(self, msg):
-        ''' Funcao chamada toda a vez que atualizar-se o topico: turtle1/pose '''
+        ''' Funcao chamada toda a vez que atualiza-se o topico: turtle1/pose '''
         self.turtle_x = msg.x
         self.turtle_y = msg.y
         self.turtle_theta = msg.theta
         self.turtle_linear_velocity = msg.linear_velocity
         self.turtle_angular_velocity = msg.angular_velocity
         # print 'x = ',self.turtle_x,'\ny = ',self.turtle_y
-
-    def move_angular(self, vel):
-        ''' Cria e envia mensagem de velocidade angular '''
-        vel_msg = Twist()
-        vel_msg.angular.z = vel
-        self.pub.publish(vel_msg)
-        turtle.rate.sleep()
-
-    def move_linear(self, vel):
-        ''' Cria e envia mensagem de velocidade linear '''
-        vel_msg = Twist()
-        vel_msg.linear.x = vel
-        self.pub.publish(vel_msg)
-        turtle.rate.sleep()
-
-    def move_general(self, vel, ang):
-        ''' Recebe velocidades linear e angular para movimentar a tartaruga '''
-        vel_msg = Twist()
-        vel_msg.linear.x = vel
-        vel_msg.angular.z = ang
-        self.pub.publish(vel_msg)
-        turtle.rate.sleep()
-
-    def stop(self):
-        ''' Cria e publica mensagem para parar a tartaruga '''
-        vel_msg = Twist()
-        self.pub.publish(vel_msg)
 
     def go_to_point(self, x, y):
         '''
@@ -90,27 +66,5 @@ class TurtleClosedLoop:
         '''
         try:
             self.go_to_point(x, y)
-        except rospy.ROSInterruptException:
-            pass
-
-
-def interface_usuario():
-    print 'Aonde deseja ir?'
-    print 'X: '
-    x = input()
-    print 'Y: '
-    y = input()
-    return x, y
-
-if __name__ == '__main__':
-
-    rospy.init_node('turtle_closed_loop')
-
-    turtle = TurtleClosedLoop()
-
-    while not rospy.is_shutdown():
-        try:
-            x, y = interface_usuario()
-            turtle.run(x, y)
         except rospy.ROSInterruptException:
             pass
