@@ -9,18 +9,18 @@ import math
 from turtle_kinematics import TurtleKinematics
 
 class TurtleClosedLoop(TurtleKinematics):
-    ''' Classe para o controle de malha fechada da tartaruga '''
+    ''' Classe para o controle de malha fechada da tartaruga.
+    Torna-se possível fechar a malha por meio do callback no "tópico turtle1/pose".
+    Ele fornece a posição atual da tartaruga dentro da simulação.
+    '''
     def __init__(self):
         ''' Construtor da classe TurtleClosedLoop '''
+        TurtleKinematics.__init__(self) # calls parent class constructor
         # parametros de movimento
         self.kp = 1
         self.vel = 1
-        # Elemento publisher ROS
-        self.pub = rospy.Publisher('turtle1/cmd_vel', Twist, queue_size = 1)
         # Elemento subscriber ROS
         rospy.Subscriber("turtle1/pose", Pose, self.callback)
-        # Frequencia de cada interacao
-        self.rate = rospy.Rate(10) #Hertz
         # inicializacao de variaveis recebidas no callback
         self.turtle_x = 0
         self.turtle_y = 0
