@@ -68,26 +68,3 @@ class TurtleClosedLoop(TurtleKinematics):
             self.go_to_point(x, y)
         except rospy.ROSInterruptException:
             pass
-
-
-def interface_usuario():
-    ''' Interface de Usuario Principal '''
-    print 'Aonde deseja ir?'
-    print 'X: '
-    x = input()
-    print 'Y: '
-    y = input()
-    return x, y
-
-if __name__ == '__main__':
-
-    rospy.init_node('turtle_closed_loop')
-
-    turtle = TurtleClosedLoop()
-
-    while not rospy.is_shutdown():
-        try:
-            x, y = interface_usuario()
-            turtle.run(x, y)
-        except rospy.ROSInterruptException:
-            pass

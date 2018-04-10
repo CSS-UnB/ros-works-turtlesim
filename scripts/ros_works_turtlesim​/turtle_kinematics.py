@@ -33,10 +33,10 @@ class TurtleKinematics:
         vel_msg = Twist()
         vel_msg.linear.x = vel
         vel_msg.angular.z = ang
-        self.pub.publish(vel_msg)
+        self.pub_vel.publish(vel_msg)
         self.rate.sleep()
 
     def stop(self):
         ''' Cria e publica mensagem para parar a tartaruga '''
         vel_msg = Twist()
-        self.pub.publish(vel_msg)
+        self.pub_vel.publish(vel_msg)
