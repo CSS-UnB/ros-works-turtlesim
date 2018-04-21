@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(ros_works_turtlesim)
+project(ros-works-turtlesim)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
@@ -156,7 +156,7 @@ include_directories(
 ## Mark executable scripts (Python etc.) for installation
 ## in contrast to setup.py, you can choose the destination
 install(PROGRAMS
-  scripts/ros_works_turtlesim/turtle_open_control_node
+  scripts/ros_works_turtlesim/turtle_open_loop_node
   scripts/ros_works_turtlesim/turtle_closed_loop_node
   scripts/ros_works_turtlesim_swarm/turtle_swarm_node
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}

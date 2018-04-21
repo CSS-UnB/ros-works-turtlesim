@@ -1,4 +1,4 @@
 <launch>
     <node pkg="turtlesim" type="turtlesim_node" name="turtlesim_node"/>
-    <node pkg="ros_works_turtlesim" type="turtle_swarm_node.py" name="turtle_swarm_node" output="screen"/>
+    <node pkg="ros-works-turtlesim" type="turtle_swarm_node.py" name="turtle_swarm_node" output="screen"/>
 </launch>
