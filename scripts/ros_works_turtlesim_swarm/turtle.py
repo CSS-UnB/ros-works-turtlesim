@@ -7,11 +7,11 @@ def kill_turtle(turtlename):
     kill(turtlename)
 
 class Turtle():
-    def __init__(self):
+    def __init__(self, name = ''):
         self.x = 0
         self.y = 0
         self.theta = 0
-        self.name = ''
+        self.name = name
 
     def set_param(self, x, y, theta, name = ''):
         self.x = x
