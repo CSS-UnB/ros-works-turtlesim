@@ -156,7 +156,7 @@ include_directories(
 ## Mark executable scripts (Python etc.) for installation
 ## in contrast to setup.py, you can choose the destination
 install(PROGRAMS
-  scripts/ros_works_turtlesim/turtle_open_control_node
+  scripts/ros_works_turtlesim/turtle_open_loop_node
   scripts/ros_works_turtlesim/turtle_closed_loop_node
   scripts/ros_works_turtlesim_swarm/turtle_swarm_node
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
