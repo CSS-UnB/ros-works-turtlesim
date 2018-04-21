@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>ros_works_turtlesim</name>
+  <name>ros-works-turtlesim</name>
   <version>0.0.0</version>
-  <description>The ros_works_turtlesim package</description>
+  <description>The ros-works-turtlesim package</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag -->
   <!-- Example:  -->
