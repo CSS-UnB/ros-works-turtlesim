@@ -2,8 +2,8 @@ from menu import Menu
 from turtle import Turtle
 import turtle
 
-class TurtleSwarm:
-    ''' Classe de gestao e comando de multiplas tartarugas '''
+class TurtleManage:
+    ''' Classe de gestao de multiplas tartarugas '''
     def __init__(self):
         ''' Construtor da classe '''
         # remove tartaruga inicial da simulacao
@@ -42,6 +42,12 @@ class TurtleSwarm:
         turtle.kill_turtle(victim_name)
         print '{} killed!\n\n'.format(victim_name)
         self.pop_turtle(victim_name)
+
+class TurtleSwarm(TurtleManage):
+    ''' Classe de comando de multiplas tartarugas '''
+    def __init__(self):
+        ''' Construtor da classe '''
+        TurtleManage.__init__(self) # calls parent class constructor
 
     def run(self):
         ''' Funcao principal da TurtleSwarm
