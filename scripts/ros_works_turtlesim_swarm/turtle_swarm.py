@@ -27,9 +27,10 @@ class TurtleSwarm:
         ''' Remove tartaruga da lista '''
         [self.turtleList.remove(turtle) for turtle in self.turtleList if turtle.name != name]
 
-    def create_turtle(self, spawn_name):
+    def create_turtle(self, x, y, theta, name):
         '''Funcao que cria uma nova turtle e a adiciona a turtleList '''
-        new_turtle = Turtle(spawn_name)
+        new_turtle = Turtle(name)
+        new_turtle.set_param(x, y, theta, name)
         new_turtle.spawn_turtle()
         self.turtleList.append(new_turtle)
         print '{} created!\n\n'.format(new_turtle.name)
@@ -49,7 +50,10 @@ class TurtleSwarm:
             # Create Turtle
             self.list_turtles()
             turtle_name = self.menu.get_name('\nChoose your turtle`s name:\n>> ')
-            self.create_turtle(turtle_name)
+            coord_x = self.menu.get_value('- X position >> ')
+            coord_y = self.menu.get_value('- Y position >> ')
+            coord_theta = self.menu.get_value('- Orientation >> ')
+            self.create_turtle(coord_x, coord_y, coord_theta, turtle_name)
         if option == 2:
             # Kill turtle
             self.list_turtles()
