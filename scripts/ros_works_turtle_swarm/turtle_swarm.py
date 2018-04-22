@@ -1,4 +1,3 @@
-from menu import Menu
 from turtle import Turtle
 import turtle
 
@@ -9,7 +8,6 @@ class TurtleManage:
         # remove tartaruga inicial da simulacao
         turtle.kill_turtle('turtle1') #TODO: TRATAR SE A TURTLE! JA FOI APAGADA
         self.turtleList = []   # lista de tartarugas vivas
-        self.menu = Menu()
 
     def list_turtles(self):
         ''' Lista nomes das tartarugas '''
@@ -49,31 +47,5 @@ class TurtleSwarm(TurtleManage):
         ''' Construtor da classe '''
         TurtleManage.__init__(self) # calls parent class constructor
 
-    def run(self):
-        ''' Funcao principal da TurtleSwarm
-        O menu retorna um valor inteiro que representa a operacao que o usuario deseja realizar.
-        '''
-        option = self.menu.print_menu()
-        if option == 1:
-            # Create Turtle
-            self.list_turtles()
-            turtle_name = self.menu.get_name('\nChoose your turtle`s name:\n>> ')
-            coord_x = self.menu.get_value('- X position >> ')
-            coord_y = self.menu.get_value('- Y position >> ')
-            coord_theta = self.menu.get_value('- Orientation >> ')
-            self.create_turtle(coord_x, coord_y, coord_theta, turtle_name)
-        if option == 2:
-            # Kill turtle
-            self.list_turtles()
-            turtle_name = self.menu.get_name('\nType the name of turtle you want to kill:\n>> ')
-            self.kill_turtle(turtle_name)
-        if option == 3:
-            # Move turtle
-            self.list_turtles()
-
-            turtle_name = self.menu.get_name('\nType the name of turtle you want to move:\n>> ')
-            turtle = self.get_turtle(turtle_name)
-            coord_x = self.menu.get_value('- X position >> ')
-            coord_y = self.menu.get_value('- Y position >> ')
-
-            turtle.move_to_point(coord_x, coord_y)
+    def CSS_logo(self):
+        pass
