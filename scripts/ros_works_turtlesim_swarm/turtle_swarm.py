@@ -16,6 +16,13 @@ class TurtleSwarm:
         print 'Turtles in Workspace: '
         print [turtle.name for turtle in self.turtleList]
 
+    def get_turtle(self, name):
+        for turtle in self.turtleList:
+            if turtle.name == name:
+                return turtle
+        print 'Turtle not found'
+        return ''
+
     def pop_turtle(self, name):
         ''' Remove tartaruga da lista '''
         [self.turtleList.remove(turtle) for turtle in self.turtleList if turtle.name != name]
@@ -48,3 +55,13 @@ class TurtleSwarm:
             self.list_turtles()
             turtle_name = self.menu.get_name('\nType the name of turtle you want to kill:\n>> ')
             self.kill_turtle(turtle_name)
+        if option == 3:
+            # Move turtle
+            self.list_turtles()
+
+            turtle_name = self.menu.get_name('\nType the name of turtle you want to move:\n>> ')
+            turtle = self.get_turtle(turtle_name)
+            coord_x = self.menu.get_value('- X position >> ')
+            coord_y = self.menu.get_value('- Y position >> ')
+
+            turtle.move_to_point(coord_x, coord_y)
