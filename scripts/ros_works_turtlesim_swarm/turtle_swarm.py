@@ -25,7 +25,9 @@ class TurtleSwarm:
 
     def pop_turtle(self, name):
         ''' Remove tartaruga da lista '''
-        [self.turtleList.remove(turtle) for turtle in self.turtleList if turtle.name != name]
+        #[self.turtleList.remove(turtle) for turtle in self.turtleList if turtle.name != name]
+        # TODO: nao esta funcionando
+        pass
 
     def create_turtle(self, x, y, theta, name):
         '''Funcao que cria uma nova turtle e a adiciona a turtleList '''
