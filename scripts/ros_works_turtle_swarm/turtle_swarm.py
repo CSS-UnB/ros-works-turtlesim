@@ -51,7 +51,7 @@ class TurtleSwarm(TurtleManage):
 
     def proportional_demo(self):
         ''' Demonstrates influence of proportional gain on movement.
-        Creates turtle called CSS on point (2.5,2.5) and make it move to (7.5,7.5).
+        Creates turtle called CSS on point (2.5,2.5) and make it move to (8.5,8.5).
         Asks for user input of how much should the proportional gain be.
         '''
         # Creates turtle
@@ -65,8 +65,10 @@ class TurtleSwarm(TurtleManage):
         # Ask for proportional gain
         value = raw_input('Proportional gain >> ')
         kp = float(value)
-        # Move to (7.5, 7.5)
-        coord_x2, coord_y2 = 7.5, 7.5
+        # Change pen color
+        css_turtle.random_pen_color()
+        # Move to (8.5, 8.5)
+        coord_x2, coord_y2 = 8.5, 8.5
         css_turtle.move_to_point(coord_x2, coord_y2, 1, kp)
         # Move back to (2.5, 2.5)
         css_turtle.move_to_point(coord_x1, coord_y1, 1, kp)
