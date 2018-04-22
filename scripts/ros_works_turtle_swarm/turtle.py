@@ -33,6 +33,6 @@ class Turtle():
         ''' Remove essa tartaruga '''
         kill_turtle(self.name)
 
-    def move_to_point(self, x, y):
+    def move_to_point(self, x, y, vel=1, kp=1):
         ''' Move turtle to point '''
-        self.movements.run(x, y)
+        self.movements.go_to_point(x, y, vel, kp)

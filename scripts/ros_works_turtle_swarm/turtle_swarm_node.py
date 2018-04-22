@@ -8,6 +8,7 @@ def print_menu():
     print '1 - Create turtle'
     print '2 - Kill turtle'
     print '3 - Move turtle'
+    print '4 - Proportional Gain Demo'
 
     return get_value('\nChoose an option:\n>> ')
 
@@ -46,10 +47,11 @@ def main(turtle_swarm):
         turtle = turtle_swarm.get_turtle(turtle_name)
         coord_x = get_value('- X position >> ')
         coord_y = get_value('- Y position >> ')
-        turtle.move_to_point(coord_x, coord_y)
+        kp = get_value('- Proportional gain >> ')
+        turtle.move_to_point(coord_x, coord_y, 1, kp)
     if option == 4:
-        # CSS logo
-        turtle_swarm.CSS_logo()
+        # Proportional gain Demo
+        turtle_swarm.proportional_demo()
 
 
 if __name__ == '__main__':

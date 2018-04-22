@@ -16,9 +16,6 @@ class TurtleClosedLoop(TurtleKinematics):
     def __init__(self, turtle_name='turtle1'):
         ''' Construtor da classe TurtleClosedLoop '''
         TurtleKinematics.__init__(self, turtle_name) # calls parent class constructor
-        # parametros de movimento
-        self.kp = 1
-        self.vel = 1
         # Elemento subscriber ROS
         rospy.Subscriber(turtle_name+'/pose', Pose, self.callback)
         # inicializacao de variaveis recebidas no callback
@@ -37,7 +34,7 @@ class TurtleClosedLoop(TurtleKinematics):
         self.turtle_angular_velocity = msg.angular_velocity
         # print 'x = ',self.turtle_x,'\ny = ',self.turtle_y
 
-    def go_to_point(self, x, y):
+    def go_to_point(self, x, y, vel=1, kp=1):
         '''
             Recebe ponto, vai ao ponto.
             Realiza um controle proporcional da orientacao da tartaruga, enquanto se move em velocidades constantes.
@@ -54,17 +51,6 @@ class TurtleClosedLoop(TurtleKinematics):
             diff_y = y - self.turtle_y
             theta_goal = math.atan2(diff_y, diff_x)
             diff_theta = theta_goal - self.turtle_theta
-            self.move_general(self.vel , self.kp * diff_theta)
+            self.move_general(vel , kp * diff_theta)
 
         self.stop()
-
-    def run(self, x, y):
-        '''
-            Funcao principal da classe
-            Recebe dois valores float x e y.
-            Os valores denotam a posicao alvo da tartaruga
-        '''
-        try:
-            self.go_to_point(x, y)
-        except rospy.ROSInterruptException:
-            pass
